@@ -9,6 +9,8 @@ a more rich and exciting place to learn Japanese!
 ##### Get the user's review queue
 ```csharp
 var wanikani = new WaniKaniClient();
+var user = wanikani.Login(username, password);
+
 var reviewClient = new WaniKaniReviewClient();
 var reviews = reviewClient.GetReviewsFor(user);
 ```
