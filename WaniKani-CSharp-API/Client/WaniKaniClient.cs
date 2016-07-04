@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Ddoodm.WaniKani.JsonUtils;
 using Ddoodm.WaniKani.HttpUtils;
+using Ddoodm.WaniKani.Models;
 
 namespace Ddoodm.WaniKani.Client
 {
@@ -20,9 +21,8 @@ namespace Ddoodm.WaniKani.Client
     {
         private const string
             WANIKANI_URL = "https://www.wanikani.com/",
-            WANIKANI_LOGIN_URL = "https://www.wanikani.com/login",
+            WANIKANI_LOGIN_URI = "https://www.wanikani.com/login",
             WANIKANI_DASHBOARD_URI = "https://www.wanikani.com/dashboard",
-            WANIKANI_REVIEW_QUEUE_URL = "https://www.wanikani.com/review/queue",
             WANIKANI_SESSION_COOKIE_KEY = "_wanikani_session";
 
         /// <summary>
@@ -52,12 +52,12 @@ namespace Ddoodm.WaniKani.Client
             byte[] postBytes = Encoding.UTF8.GetBytes(postData);
 
             // Build a HTTP POST request from the fabricated form data
-            HttpWebRequest loginRequest = HttpWebRequest.Create(WANIKANI_LOGIN_URL) as HttpWebRequest;
+            HttpWebRequest loginRequest = HttpWebRequest.Create(WANIKANI_LOGIN_URI) as HttpWebRequest;
             CookieContainer cookieJar = new CookieContainer();
             loginRequest.Method = "POST";
             loginRequest.ContentType = "application/x-www-form-urlencoded";
             loginRequest.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            loginRequest.Referer = WANIKANI_LOGIN_URL;
+            loginRequest.Referer = WANIKANI_LOGIN_URI;
             loginRequest.ContentLength = postBytes.Length;
             loginRequest.CookieContainer = cookieJar;
 
@@ -76,7 +76,7 @@ namespace Ddoodm.WaniKani.Client
             Cookie waniKaniSessionCookie = GetWaniKaniSessionCookie(newCookies);
 
             // If the user was not redirected away from the login, they have not been logged in
-            if (response.ResponseUri == new Uri(WANIKANI_LOGIN_URL))
+            if (response.ResponseUri == new Uri(WANIKANI_LOGIN_URI))
                 return null;
 
             // Otherwise, create the WaniKani user
@@ -105,7 +105,7 @@ namespace Ddoodm.WaniKani.Client
             };
 
             // Retrieve the WaniKani login interface via a GET request
-            HtmlDocument loginInterface = htmlWeb.Load(WANIKANI_LOGIN_URL);
+            HtmlDocument loginInterface = htmlWeb.Load(WANIKANI_LOGIN_URI);
 
             // Locate the hidden 'authenticity token' form field
             HtmlNode authenticityTokenInput =
@@ -125,19 +125,6 @@ namespace Ddoodm.WaniKani.Client
         private Cookie GetWaniKaniSessionCookie(CookieCollection cookies)
         {
             return cookies[WANIKANI_SESSION_COOKIE_KEY];
-        }
-
-        public WaniKaniReviewQueue GetReviewsFor(WaniKaniUser user)
-        {
-            HttpWebResponse response =
-                WaniKaniHttpUtils.MakeAuthenticatedWaniKaniRequest(
-                    WANIKANI_REVIEW_QUEUE_URL, user);
-
-            StreamReader reader = new StreamReader(response.GetResponseStream());
-            string responseString = reader.ReadToEnd();
-
-            var reviewQueue = JsonConvert.DeserializeObject<List<WaniKaniReviewCard>>(responseString, new JsonReviewConverter());
-            return new WaniKaniReviewQueue(reviewQueue);
         }
     }
 }

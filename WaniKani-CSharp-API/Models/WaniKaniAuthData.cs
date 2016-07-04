@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Ddoodm.WaniKani.Client
+namespace Ddoodm.WaniKani.Models
 {
     internal class WaniKaniAuthData
     {

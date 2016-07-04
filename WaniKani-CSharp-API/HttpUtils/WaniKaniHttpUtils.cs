@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -20,6 +21,16 @@ namespace Ddoodm.WaniKani.HttpUtils
             cookieJar.Add(user.SessionCookie);
 
             return queueRequest.GetResponse() as HttpWebResponse;
+        }
+
+        internal static string GetAuthenticatedStringResult(string uri, WaniKaniUser user)
+        {
+            HttpWebResponse response =
+                WaniKaniHttpUtils.MakeAuthenticatedWaniKaniRequest(
+                    uri, user);
+
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+            return reader.ReadToEnd();
         }
     }
 }

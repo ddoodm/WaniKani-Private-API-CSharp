@@ -9,19 +9,17 @@ using System.Threading.Tasks;
 
 namespace Ddoodm.WaniKani.JsonUtils
 {
-    public class JsonReviewConverter : Newtonsoft.Json.Converters.CustomCreationConverter<WaniKaniReviewCard>
+    public class JsonLessonConverter : Newtonsoft.Json.Converters.CustomCreationConverter<WaniKaniLessonCard>
     {
-        public override WaniKaniReviewCard Create(Type objectType)
+        public override WaniKaniLessonCard Create(Type objectType)
         {
             throw new NotImplementedException();
         }
 
-        public WaniKaniReviewCard Create(Type objectType, JObject jObject)
+        public WaniKaniLessonCard Create(Type objectType, JObject jObject)
         {
-            if (jObject["voc"] != null)
-                return new WaniKaniReviewVocabCard();
-            if (jObject["kan"] != null)
-                return new WaniKaniReviewKanjiCard();
+            if (jObject["rad"] != null)
+                return new WaniKaniRadicalLessonCard();
 
             return null;
         }

@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Ddoodm.WaniKani
+namespace Ddoodm.WaniKani.Models
 {
-    public class WaniKaniReviewQueue
+    public class WaniKaniReviewQueue : IEnumerable<WaniKaniReviewCard>
     {
         private List<WaniKaniReviewCard> reviewCards;
 
@@ -15,23 +17,40 @@ namespace Ddoodm.WaniKani
         {
             this.reviewCards = reviewCards;
         }
+
+        public int Count
+        {
+            get
+            {
+                return reviewCards.Count;
+            }
+        }
+
+        public IEnumerator<WaniKaniReviewCard> GetEnumerator()
+        {
+            return reviewCards.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
-    public class WaniKaniReviewCard
+    public abstract class WaniKaniReviewCard
     {
+        [JsonProperty(PropertyName = "id")]
+        public int ID { get; set; }
 
+        [JsonProperty(PropertyName = "srs")]
+        public int SRSLevel { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
     public class WaniKaniReviewVocabCard : WaniKaniReviewCard
     {
-        [JsonProperty(PropertyName = "id")]
-        public int ID { get; set; }
-
         [JsonProperty(PropertyName = "voc")]
         public string VocabWord { get; set; }
-        [JsonProperty(PropertyName = "srs")]
-        public int SRSLevel { get; set; }
         [JsonProperty(PropertyName = "en")]
         public string[] EnglishMeanings { get; set; }
         [JsonProperty(PropertyName = "kana")]
@@ -43,13 +62,8 @@ namespace Ddoodm.WaniKani
     [JsonObject(MemberSerialization.OptIn)]
     public class WaniKaniReviewKanjiCard : WaniKaniReviewCard
     {
-        [JsonProperty(PropertyName = "id")]
-        public int ID { get; set; }
-
         [JsonProperty(PropertyName = "kan")]
         public string Kanji { get; set; }
-        [JsonProperty(PropertyName = "srs")]
-        public int SRSLevel { get; set; }
         [JsonProperty(PropertyName = "en")]
         public string[] EnglishMeanings { get; set; }
         [JsonProperty(PropertyName = "kun")]

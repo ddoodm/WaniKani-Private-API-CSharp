@@ -49,7 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\WaniKaniAuthData.cs" />
+    <Compile Include="Client\WaniKaniLessonClient.cs" />
+    <Compile Include="Client\WaniKaniReviewClient.cs" />
+    <Compile Include="JsonUtils\JsonLessonConverter.cs" />
+    <Compile Include="Models\WaniKaniAuthData.cs" />
     <Compile Include="Client\WaniKaniClient.cs" />
     <Compile Include="Client\WaniKaniJsonApiClient.cs" />
     <Compile Include="Client\WaniKaniKanjiClient.cs" />
@@ -58,10 +61,11 @@
     <Compile Include="JsonUtils\JsonReviewConverter.cs" />
     <Compile Include="JsonUtils\WaniKaniSentenceConverter.cs" />
     <Compile Include="Models\WaniKaniKanji.cs" />
+    <Compile Include="Models\WaniKaniLesson.cs" />
     <Compile Include="Models\WaniKaniSentence.cs" />
     <Compile Include="Models\WaniKaniVocabWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WaniKaniReview.cs" />
+    <Compile Include="Models\WaniKaniReview.cs" />
     <Compile Include="WaniKaniUser.cs" />
   </ItemGroup>
   <ItemGroup>
