@@ -6,19 +6,19 @@ a more rich and exciting place to learn Japanese!
 **This library is super young right now, and it's terribly thin and flimsy.**
 
 ### Examples
-##### Gather a collection of reviews
+##### Get the user's review queue
 ```csharp
-WaniKaniClient wanikani = new WaniKaniClient();
-WaniKaniUser user = wanikani.Login("user@example.com", "password");
-WaniKaniReviewQueue reviews = wanikani.GetReviewsFor(user);
+var wanikani = new WaniKaniClient();
+var reviewClient = new WaniKaniReviewClient();
+var reviews = reviewClient.GetReviewsFor(user);
 ```
 ##### Get the details of a kanji
 ```csharp
-WaniKaniClient wanikani = new WaniKaniClient();
-WaniKaniUser user = wanikani.Login("user@example.com", "password");
+var wanikani = new WaniKaniClient();
+var user = wanikani.Login("user@example.com", "password");
 
-WaniKaniKanjiClient kanjiClient = new WaniKaniKanjiClient(user);
-WaniKaniKanji kanji = kanjiClient.GetKanji(42);
+var kanjiClient = new WaniKaniKanjiClient(user);
+var kanji = kanjiClient.GetKanji(42);
 ```
 
 ### Existing Features
