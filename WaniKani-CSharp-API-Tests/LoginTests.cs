@@ -45,8 +45,9 @@ namespace Ddoodm.WaniKani.Client.Tests
             var user = wanikani.Login(username, password);
 
             // Lessons
-            var lessonClient = new WaniKaniLessonClient();
-            var lesson = lessonClient.GetLessonsFor(user);
+            var lessonClient = new WaniKaniLessonClient(user);
+            var lesson = lessonClient.GetLessonQueue();
+            lessonClient.CompleteItem(lesson.Queue[0]);
 
             // Reviews
             //var reviewClient = new WaniKaniReviewClient();

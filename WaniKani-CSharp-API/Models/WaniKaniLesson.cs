@@ -13,16 +13,24 @@ namespace Ddoodm.WaniKani.Models
         public List<WaniKaniLessonCard> Queue { get; set; }
     }
 
-    public class WaniKaniLessonCard
-    {
-
-    }
-
-    public class WaniKaniRadicalLessonCard : WaniKaniLessonCard
+    public abstract class WaniKaniLessonCard
     {
         [JsonProperty(PropertyName = "id")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// A string variant of the item's ID which
+        /// indicates the item's type as well as its ID.
+        /// Used with the lesson completion API to
+        /// specify which item was completed.
+        /// 
+        /// Example: r22
+        /// </summary>
+        public abstract string NamedID { get; }
+    }
+
+    public class WaniKaniRadicalLessonCard : WaniKaniLessonCard
+    {
         [JsonProperty(PropertyName = "rad")]
         public string Radical { get; set; }
 
@@ -35,6 +43,14 @@ namespace Ddoodm.WaniKani.Models
 
         [JsonProperty(PropertyName = "kanji")]
         public SimpleKanjiDetails[] UsedInKanji { get; set; }
+
+        public override string NamedID
+        {
+            get
+            {
+                return String.Format("r{0}", ID);
+            }
+        }
 
         public struct SimpleKanjiDetails
         {

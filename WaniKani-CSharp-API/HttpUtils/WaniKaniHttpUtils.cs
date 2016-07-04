@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,7 +12,8 @@ namespace Ddoodm.WaniKani.HttpUtils
 {
     internal class WaniKaniHttpUtils
     {
-        internal static HttpWebResponse MakeAuthenticatedWaniKaniRequest(string uri, WaniKaniUser user)
+        internal static HttpWebResponse MakeAuthenticatedWaniKaniRequest(
+            string uri, WaniKaniUser user)
         {
             HttpWebRequest queueRequest = HttpWebRequest.Create(uri) as HttpWebRequest;
             queueRequest.Accept = "application/json, text/javascript, */*; q=0.01";
@@ -21,6 +23,14 @@ namespace Ddoodm.WaniKani.HttpUtils
             cookieJar.Add(user.SessionCookie);
 
             return queueRequest.GetResponse() as HttpWebResponse;
+        }
+
+        internal static HttpWebResponse MakeAuthenticatedWaniKaniRequest(
+            string uri, WaniKaniUser user, NameValueCollection parameters)
+        {
+            string parameterizedUri = String.Format(
+                "{0}?{1}", uri, parameters.ToQueryString());
+            return MakeAuthenticatedWaniKaniRequest(parameterizedUri, user);
         }
 
         internal static string GetAuthenticatedStringResult(string uri, WaniKaniUser user)
