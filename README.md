@@ -14,7 +14,7 @@ var user = wanikani.Login(username, password);
 
 // Gather the user's review queue
 var reviewClient = new WaniKaniReviewClient(user);
-var reviews = reviewClient.GetReviewsFor(user);
+var reviews = reviewClient.GetReviews();
 
 // Update the SRS progress for the first item in the queue.
 // Parameters indicate the number of failed attempts.
