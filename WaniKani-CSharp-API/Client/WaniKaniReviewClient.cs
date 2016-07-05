@@ -17,10 +17,10 @@ namespace Ddoodm.WaniKani.Client
         private const string 
             WANIKANI_REVIEW_QUEUE_URI = "https://www.wanikani.com/review/queue";
 
-        public WaniKaniReviewQueue GetReviewsFor(WaniKaniUser user)
+        public async Task<WaniKaniReviewQueue> GetReviewsFor(WaniKaniUser user)
         {
             string response =
-                WaniKaniHttpUtils.GetAuthenticatedStringResult(
+                await WaniKaniHttpUtils.GetAuthenticatedStringResultAsync(
                     WANIKANI_REVIEW_QUEUE_URI, user);
 
             var reviewQueue = JsonConvert

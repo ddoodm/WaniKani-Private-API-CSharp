@@ -18,9 +18,9 @@ namespace Ddoodm.WaniKani.Client
 
         }
 
-        public WaniKaniKanji GetKanji(int id)
+        public async Task<WaniKaniKanji> GetKanji(int id)
         {
-            return base.QueryEndpointForItem(id);
+            return await base.QueryEndpointForItemAsync(id);
         }
     }
 }

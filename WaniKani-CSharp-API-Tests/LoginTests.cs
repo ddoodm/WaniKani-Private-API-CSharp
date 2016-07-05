@@ -39,15 +39,18 @@ namespace Ddoodm.WaniKani.Client.Tests
         }
 
         [TestMethod]
-        public void Test_Login_Success()
+        public void General_Test_Area_Really_Bad_Testing_Style_This_Is_Not_Good_Practice_Sorry()
         {
             var wanikani = new WaniKaniClient();
             var user = wanikani.Login(username, password);
 
             // Lessons
             var lessonClient = new WaniKaniLessonClient(user);
-            var lesson = lessonClient.GetLessonQueue();
-            lessonClient.CompleteItem(lesson.Queue[0]);
+            var lesson = lessonClient.GetLessonQueueAsync();
+            //lessonClient.CompleteItem(lesson.Queue[0]);
+
+            foreach (var card in lesson.Queue)
+                lessonClient.CompleteItem(card);
 
             // Reviews
             //var reviewClient = new WaniKaniReviewClient();

@@ -23,9 +23,9 @@ namespace Ddoodm.WaniKani.Client
             
         }
 
-        public WaniKaniVocabWord GetVocabWord(int id)
+        public async Task<WaniKaniVocabWord> GetVocabWord(int id)
         {
-            return base.QueryEndpointForItem(id);
+            return await base.QueryEndpointForItemAsync(id);
         }
     }
 }

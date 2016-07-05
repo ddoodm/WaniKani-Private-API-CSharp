@@ -12,7 +12,7 @@ namespace Ddoodm.WaniKani.HttpUtils
 {
     internal class WaniKaniHttpUtils
     {
-        internal static HttpWebResponse MakeAuthenticatedWaniKaniRequest(
+        internal static async Task<HttpWebResponse> MakeAuthenticatedRequestForResultAsync(
             string uri, WaniKaniUser user)
         {
             HttpWebRequest queueRequest = HttpWebRequest.Create(uri) as HttpWebRequest;
@@ -22,21 +22,21 @@ namespace Ddoodm.WaniKani.HttpUtils
             CookieContainer cookieJar = queueRequest.CookieContainer = new CookieContainer();
             cookieJar.Add(user.SessionCookie);
 
-            return queueRequest.GetResponse() as HttpWebResponse;
+            return await queueRequest.GetResponseAsync() as HttpWebResponse;
         }
 
-        internal static HttpWebResponse MakeAuthenticatedWaniKaniRequest(
+        internal static async Task<HttpWebResponse> MakeAuthenticatedRequestForResultAsync(
             string uri, WaniKaniUser user, NameValueCollection parameters)
         {
             string parameterizedUri = String.Format(
                 "{0}?{1}", uri, parameters.ToQueryString());
-            return MakeAuthenticatedWaniKaniRequest(parameterizedUri, user);
+            return await MakeAuthenticatedRequestForResultAsync(parameterizedUri, user);
         }
 
-        internal static string GetAuthenticatedStringResult(string uri, WaniKaniUser user)
+        internal static async Task<string> GetAuthenticatedStringResultAsync(string uri, WaniKaniUser user)
         {
             HttpWebResponse response =
-                WaniKaniHttpUtils.MakeAuthenticatedWaniKaniRequest(
+                await WaniKaniHttpUtils.MakeAuthenticatedRequestForResultAsync(
                     uri, user);
 
             StreamReader reader = new StreamReader(response.GetResponseStream());

@@ -26,14 +26,15 @@ namespace Ddoodm.WaniKani.Client
             this.user = user;
         }
 
-        public WaniKaniLessonQueue GetLessonQueue()
+        public async Task<WaniKaniLessonQueue> GetLessonQueueAsync()
         {
             string response =
-                WaniKaniHttpUtils.GetAuthenticatedStringResult(
+                await WaniKaniHttpUtils.GetAuthenticatedStringResultAsync(
                     WANIKANI_LESSON_ENDPOINT_URI, user);
 
-            return JsonConvert.DeserializeObject<WaniKaniLessonQueue>
-                ( response, new JsonLessonConverter());
+            return await Task<WaniKaniLessonQueue>.Factory.StartNew(() =>
+                JsonConvert.DeserializeObject<WaniKaniLessonQueue>
+                ( response, new JsonLessonConverter()));
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace Ddoodm.WaniKani.Client
             NameValueCollection parameters = new NameValueCollection();
             parameters.Add("keys[]", card.NamedID);
 
-            WaniKaniHttpUtils.MakeAuthenticatedWaniKaniRequest(
+            WaniKaniHttpUtils.MakeAuthenticatedRequestForResultAsync(
                 WANIKANI_LESSON_COMPLETE_URI, user, parameters);
         }
     }

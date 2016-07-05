@@ -20,16 +20,18 @@ namespace Ddoodm.WaniKani.Client
             this.user = user;
         }
 
-        protected T QueryEndpointForItem(int id)
+        protected async Task<T> QueryEndpointForItemAsync(int id)
         {
             // Query the WaniKani endpoint for the requested item
             string requestUri = String.Format("{0}/{1}", endpointUrl, id);
-            var response = WaniKaniHttpUtils.MakeAuthenticatedWaniKaniRequest(requestUri, user);
+            var response = 
+                await WaniKaniHttpUtils.MakeAuthenticatedRequestForResultAsync(requestUri, user);
 
             StreamReader reader = new StreamReader(response.GetResponseStream());
-            string responseString = reader.ReadToEnd();
+            string responseString = await reader.ReadToEndAsync();
 
-            return JsonConvert.DeserializeObject<T>(responseString);
+            return await Task<T>.Factory.StartNew(() =>
+                JsonConvert.DeserializeObject<T>(responseString));
         }
     }
 }
