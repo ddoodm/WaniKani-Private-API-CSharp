@@ -6,13 +6,22 @@ a more rich and exciting place to learn Japanese!
 **This library is super young right now, and it's terribly thin and flimsy.**
 
 ### Examples
-##### Get the user's review queue
+##### Get the user's review queue & update an item's progress
 ```csharp
+// Log in
 var wanikani = new WaniKaniClient();
 var user = wanikani.Login(username, password);
 
-var reviewClient = new WaniKaniReviewClient();
+// Gather the user's review queue
+var reviewClient = new WaniKaniReviewClient(user);
 var reviews = reviewClient.GetReviewsFor(user);
+
+// Update the SRS progress for the first item in the queue.
+// Parameters indicate the number of failed attempts.
+reviewClient.UpdateItemProgress(
+    card: item, 
+    meaningFailures: 0, 
+    readingFailures: 0);
 ```
 ##### Get the details of a kanji
 ```csharp
@@ -25,10 +34,11 @@ var kanji = kanjiClient.GetKanji(42);
 
 ### Existing Features
 * WaniKani user authentication
-* Retrieve a user's review queue
-* Gather information about any kanji or vocabulary item
+* Retrieve a user's review queue and lesson queue
+* Gather information about any radical, kanji or vocabulary item
+* Report on the progress of a review item
 
-### Anticipated Features
-* Design a more abstracted queryable data structure for retrieving items with LINQ.
-* Interface with the endpoint for review item updates (ie, allow reviews to be completed).
-* Build a lesson client.
+### To Do
+* Design a more abstracted queryable data structure for retrieving items with LINQ
+* Fix bugs and timing issues
+* Implement async functions
