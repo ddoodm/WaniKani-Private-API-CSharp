@@ -47,7 +47,11 @@ namespace Ddoodm.WaniKani.Client.Tests
             // Lessons
             var lessonClient = new WaniKaniLessonClient(user);
             var lesson = lessonClient.GetLessonQueue();
-            lessonClient.CompleteItem(lesson.Queue[0]);
+            //lessonClient.CompleteItem(lesson.Queue[0]);
+
+            // Get radical information
+            var radicalClient = new WaniKaniRadicalClient(user);
+            var radical = radicalClient.GetRadical(20);
 
             // Reviews
             //var reviewClient = new WaniKaniReviewClient();

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\WaniKaniLessonClient.cs" />
+    <Compile Include="Client\WaniKaniRadicalClient.cs" />
     <Compile Include="Client\WaniKaniReviewClient.cs" />
     <Compile Include="HttpUtils\NameValueCollectionQueryStringExtension.cs" />
     <Compile Include="JsonUtils\JsonLessonConverter.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="JsonUtils\WaniKaniSentenceConverter.cs" />
     <Compile Include="Models\WaniKaniKanji.cs" />
     <Compile Include="Models\WaniKaniLesson.cs" />
+    <Compile Include="Models\WaniKaniRadical.cs" />
     <Compile Include="Models\WaniKaniSentence.cs" />
     <Compile Include="Models\WaniKaniVocabWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
