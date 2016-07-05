@@ -54,6 +54,7 @@
     <Compile Include="Client\WaniKaniReviewClient.cs" />
     <Compile Include="HttpUtils\NameValueCollectionQueryStringExtension.cs" />
     <Compile Include="JsonUtils\JsonLessonConverter.cs" />
+    <Compile Include="Models\WaniKaniArtifact.cs" />
     <Compile Include="Models\WaniKaniAuthData.cs" />
     <Compile Include="Client\WaniKaniClient.cs" />
     <Compile Include="Client\WaniKaniJsonApiClient.cs" />

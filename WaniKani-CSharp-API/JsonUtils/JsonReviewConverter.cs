@@ -22,6 +22,8 @@ namespace Ddoodm.WaniKani.JsonUtils
                 return new WaniKaniReviewVocabCard();
             if (jObject["kan"] != null)
                 return new WaniKaniReviewKanjiCard();
+            if (jObject["rad"] != null)
+                return new WaniKaniReviewRadicalCard();
 
             return null;
         }

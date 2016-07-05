@@ -20,6 +20,7 @@ namespace Ddoodm.WaniKani.JsonUtils
         {
             if (jObject["rad"] != null)
                 return new WaniKaniRadicalLessonCard();
+            throw new NotImplementedException();
 
             return null;
         }

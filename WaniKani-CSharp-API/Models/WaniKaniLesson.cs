@@ -13,20 +13,10 @@ namespace Ddoodm.WaniKani.Models
         public List<WaniKaniLessonCard> Queue { get; set; }
     }
 
-    public abstract class WaniKaniLessonCard
+    public abstract class WaniKaniLessonCard : WaniKaniArtifact
     {
         [JsonProperty(PropertyName = "id")]
         public int ID { get; set; }
-
-        /// <summary>
-        /// A string variant of the item's ID which
-        /// indicates the item's type as well as its ID.
-        /// Used with the lesson completion API to
-        /// specify which item was completed.
-        /// 
-        /// Example: r22
-        /// </summary>
-        public abstract string NamedID { get; }
     }
 
     public class WaniKaniRadicalLessonCard : WaniKaniLessonCard

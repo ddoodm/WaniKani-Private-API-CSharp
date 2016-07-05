@@ -9,41 +9,44 @@ using Newtonsoft.Json;
 
 namespace Ddoodm.WaniKani.Models
 {
-    public class WaniKaniReviewQueue : IEnumerable<WaniKaniReviewCard>
+    public class WaniKaniReviewQueue
     {
-        private List<WaniKaniReviewCard> reviewCards;
+        public List<WaniKaniReviewCard> Queue { get; private set; }
 
         public WaniKaniReviewQueue(List<WaniKaniReviewCard> reviewCards)
         {
-            this.reviewCards = reviewCards;
-        }
-
-        public int Count
-        {
-            get
-            {
-                return reviewCards.Count;
-            }
-        }
-
-        public IEnumerator<WaniKaniReviewCard> GetEnumerator()
-        {
-            return reviewCards.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            this.Queue = reviewCards;
         }
     }
 
-    public abstract class WaniKaniReviewCard
+    public abstract class WaniKaniReviewCard : WaniKaniArtifact
     {
         [JsonProperty(PropertyName = "id")]
         public int ID { get; set; }
 
         [JsonProperty(PropertyName = "srs")]
         public int SRSLevel { get; set; }
+    }
+
+    [JsonObject(MemberSerialization.OptIn)]
+    public class WaniKaniReviewRadicalCard : WaniKaniReviewCard
+    {
+        [JsonProperty(PropertyName = "en")]
+        public string[] EnglishNames { get; set; }
+        [JsonProperty(PropertyName = "rad")]
+        public string Radical { get; set; }
+        [JsonProperty(PropertyName = "syn")]
+        public string[] Unknown_Syn { get; set; }
+        [JsonProperty(PropertyName = "custom_font_name")]
+        public string CustomFontName { get; set; }
+
+        public override string NamedID
+        {
+            get
+            {
+                return String.Format("r{0}", ID);
+            }
+        }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
@@ -57,6 +60,14 @@ namespace Ddoodm.WaniKani.Models
         public string[] KanaReadings { get; set; }
         [JsonProperty(PropertyName = "aud")]
         public string AudioClipURL { get; set; }
+
+        public override string NamedID
+        {
+            get
+            {
+                return String.Format("v{0}", ID);
+            }
+        }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
@@ -76,5 +87,13 @@ namespace Ddoodm.WaniKani.Models
         public string[] Nanori { get; set; }
         [JsonProperty(PropertyName = "syn")]
         public string[] Syn { get; set; }
+
+        public override string NamedID
+        {
+            get
+            {
+                return String.Format("k{0}", ID);
+            }
+        }
     }
 }
