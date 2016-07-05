@@ -19,7 +19,7 @@ var reviews = reviewClient.GetReviews();
 // Update the SRS progress for the first item in the queue.
 // Parameters indicate the number of failed attempts.
 reviewClient.UpdateItemProgress(
-    card: item, 
+    card: reviews.Queue[0], 
     meaningFailures: 0, 
     readingFailures: 0);
 ```
