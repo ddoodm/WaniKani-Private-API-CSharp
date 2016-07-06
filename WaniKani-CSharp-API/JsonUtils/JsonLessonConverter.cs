@@ -20,9 +20,9 @@ namespace Ddoodm.WaniKani.JsonUtils
         {
             if (jObject["rad"] != null)
                 return new WaniKaniRadicalLessonCard();
+            if (jObject["kan"] != null)
+                return new WaniKaniKanjiLessonCard();
             throw new NotImplementedException();
-
-            return null;
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

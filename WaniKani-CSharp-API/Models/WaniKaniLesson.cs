@@ -54,4 +54,43 @@ namespace Ddoodm.WaniKani.Models
             public string Slug { get; set; }
         }
     }
+
+    public class WaniKaniKanjiLessonCard : WaniKaniLessonCard
+    {
+        [JsonProperty(PropertyName = "kan")]
+        public string Kanji { get; set; }
+        [JsonProperty(PropertyName = "en")]
+        public string[] EnglishMeanings { get; set; }
+
+        [JsonProperty(PropertyName = "kun")]
+        public string[] KunyomiReadings { get; set; }
+        [JsonProperty(PropertyName = "on")]
+        public string[] OnyomiReadings { get; set; }
+        [JsonProperty(PropertyName = "nanori")]
+        public string[] NanoriReadings { get; set; }
+        [JsonProperty(PropertyName = "emph")]
+        public string PreferredReading { get; set; }
+
+        [JsonProperty(PropertyName = "mmne")]
+        public string MeaningMnemonic { get; set; }
+        [JsonProperty(PropertyName = "mnhnt")]
+        public string MeaningHint { get; set; }
+        [JsonProperty(PropertyName = "rmne")]
+        public string ReadingMnemonic { get; set; }
+        [JsonProperty(PropertyName = "rhnt")]
+        public string ReadingHint { get; set; }
+
+        public override string NamedID
+        {
+            get
+            {
+                return String.Format("k{0}", ID);
+            }
+        }
+
+        /*
+        TODO:
+        Implement related radical / kanji section
+        */
+    }
 }

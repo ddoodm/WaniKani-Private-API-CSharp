@@ -45,8 +45,8 @@ namespace Ddoodm.WaniKani.Client.Tests
             var user = wanikani.Login(username, password);
 
             // Lessons
-            //var lessonClient = new WaniKaniLessonClient(user);
-            //var lesson = lessonClient.GetLessonQueue();
+            var lessonClient = new WaniKaniLessonClient(user);
+            var lesson = lessonClient.GetLessonQueue();
             //lessonClient.CompleteItem(lesson.Queue[0]);
 
             // Get radical information
@@ -54,11 +54,11 @@ namespace Ddoodm.WaniKani.Client.Tests
             //var radical = radicalClient.GetRadical(20);
 
             // Reviews
-            var reviewClient = new WaniKaniReviewClient(user);
-            var reviews = reviewClient.GetReviews();
+            //var reviewClient = new WaniKaniReviewClient(user);
+            //var reviews = reviewClient.GetReviews();
 
-            foreach(var item in reviews.Queue)
-                reviewClient.UpdateItemProgress(item, 0, 0);
+            //foreach(var item in reviews.Queue)
+            //    reviewClient.UpdateItemProgress(item, 0, 0);
 
             //var vocabClient = new WaniKaniVocabClient(user);
             //var word = vocabClient.GetVocabWord(100);
